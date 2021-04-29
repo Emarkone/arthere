@@ -13,11 +13,11 @@
 }
 
 .art-item-img {
-    background-image: url(/assets/img/art/alone.png);
     height: 100%;
     width: 100%;
     background-size: cover;
     background-position: center;
+    border-right: solid 1px;
 }
 
 .art-item-text {
@@ -71,5 +71,13 @@
 
 .pull-right {
     float: right !important;
+}
+
+@media (max-width: 768px) { 
+    .art-item-img {
+        height: 125px;
+        border-right: none !important;  
+        border-bottom: solid 1px;
+    }
 }
 

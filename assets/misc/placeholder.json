@@ -7,8 +7,9 @@
             "price": "253",
             "img": "assets/img/art/alone.png",
             "tags": {
-                "purple": "Space",
-                "dark": "Digital Art"
+                "dark": "Digital Art",
+                "purple": "Space"
+                
             }
         },
         {
@@ -18,10 +19,9 @@
             "price": "523",
             "img": "assets/img/art/organic.png",
             "tags": {
-                
+                "dark": "Digital Art",
                 "primary": "Earth",
-                "warning": "New !",
-                "dark": "Digital Art"
+                "warning": "New !"
             }
         },
         {
@@ -31,10 +31,9 @@
             "price": "18",
             "img": "assets/img/art/cosmos.png",
             "tags": {
-                
+                "dark": "Digital Art",
                 "purple": "Space",
-                "info": "Sales",
-                "dark": "Digital Art"
+                "info": "Sales"
             }
         },
         {
@@ -44,10 +43,8 @@
             "price": "42",
             "img": "assets/img/art/isolatedsystem.png",
             "tags": {
-                
-                
-                "info": "Sales",
-                "dark": "Digital Art"
+                "dark": "Digital Art",
+                "info": "Sales"
             }
         },
         {
@@ -57,8 +54,8 @@
             "price": "89",
             "img": "assets/img/art/systeme1.png",
             "tags": {
-                "purple": "Space",
-                "dark": "Digital Art"
+                "dark": "Digital Art",
+                "purple": "Space"
             }
         },
         {
@@ -68,8 +65,41 @@
             "price": "125",
             "img": "assets/img/art/duality.png",
             "tags": {
-                "danger": "Human",
-                "dark": "Digital Art"
+                "dark": "Digital Art",
+                "danger": "Human"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Isolated System",
+            "author": "Klimae",
+            "price": "42",
+            "img": "assets/img/art/isolatedsystem.png",
+            "tags": {
+                "dark": "Digital Art",
+                "info": "Sales"
+            }
+        },
+        {
+            "id": "0",
+            "name": "System 1",
+            "author": "Klimae",
+            "price": "89",
+            "img": "assets/img/art/systeme1.png",
+            "tags": {
+                "dark": "Digital Art",
+                "purple": "Space"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Duality",
+            "author": "Klimae",
+            "price": "125",
+            "img": "assets/img/art/duality.png",
+            "tags": {
+                "dark": "Digital Art",
+                "danger": "Human"
             }
         }
     ]

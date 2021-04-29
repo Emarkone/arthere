@@ -33,7 +33,7 @@ export default class App {
     }
 
     async loadData() {
-        this.artworksList = document.querySelector('.classList');
+        this.artworksList = document.querySelector('.artList');
         this.artworkShow = document.querySelector('.artShow');
 
         if(window.localStorage) {
