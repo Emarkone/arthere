@@ -1,0 +1,76 @@
+{
+    "artworks": [
+        {
+            "id": "0",
+            "name": "Alone ?",
+            "author": "Klimae",
+            "price": "253",
+            "img": "assets/img/art/alone.png",
+            "tags": {
+                "purple": "Space",
+                "dark": "Digital Art"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Organic",
+            "author": "Klimae",
+            "price": "523",
+            "img": "assets/img/art/organic.png",
+            "tags": {
+                
+                "primary": "Earth",
+                "warning": "New !",
+                "dark": "Digital Art"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Cosmos",
+            "author": "Klimae",
+            "price": "18",
+            "img": "assets/img/art/cosmos.png",
+            "tags": {
+                
+                "purple": "Space",
+                "info": "Sales",
+                "dark": "Digital Art"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Isolated System",
+            "author": "Klimae",
+            "price": "42",
+            "img": "assets/img/art/isolatedsystem.png",
+            "tags": {
+                
+                
+                "info": "Sales",
+                "dark": "Digital Art"
+            }
+        },
+        {
+            "id": "0",
+            "name": "System 1",
+            "author": "Klimae",
+            "price": "89",
+            "img": "assets/img/art/systeme1.png",
+            "tags": {
+                "purple": "Space",
+                "dark": "Digital Art"
+            }
+        },
+        {
+            "id": "0",
+            "name": "Duality",
+            "author": "Klimae",
+            "price": "125",
+            "img": "assets/img/art/duality.png",
+            "tags": {
+                "danger": "Human",
+                "dark": "Digital Art"
+            }
+        }
+    ]
+}
