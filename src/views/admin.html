@@ -1,0 +1,70 @@
+<div class="container">
+    <h2 class="border-bottom pb-2 my-5">Admin page</h2>
+    <div class="row">
+        <h4 class="border-bottom">Add new artwork</h4>
+        <form class="formAdd mb-3">
+            <div class="row mb-3">
+                <div class="col-lg-6">
+                    <div class="mb-1">
+                        <label for="awname" class="form-label">Name</label>
+                        <input id="text" name="awname" placeholder="Artwork's Name" type="text" class="form-control"
+                            required="required">
+                    </div>
+                    <div class="mb-1">
+                        <label for="author" class="form-label">Author</label>
+                        <input id="author" name="author" placeholder="Artwork's Author" type="text" required="required"
+                            class="form-control">
+                    </div>
+                    <div class="mb-1">
+                        <label for="price" class="form-label">Price</label>
+                        <div class="input-group">
+                            <input id="price" name="price" type="text" placeholder="Artwork's Price"
+                                class="form-control">
+                            <div class="input-group-append">
+                                <div class="input-group-text">€</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea id="description" name="description" cols="40" rows="5" class="form-control"
+                            aria-describedby="descriptionHelpBlock" required="required"></textarea>
+                        <span id="descriptionHelpBlock" class="form-text text-muted">Describe your artwork !</span>
+                    </div>
+                    <div class="mb-2">
+                        <label for="img" class="form-label">Image path</label>
+                        <input id="img" name="img" placeholder="https://path/to/img.png" type="text"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 labelAdd">
+
+                    <div class="mb-0 row">
+                        <div class="col-8 mb-0">
+                            <label for="inputCity" class="form-label">Tag Name</label>
+                        </div>
+                        <div class="col-4 mb-0">
+                            <label for="inputState" class="form-label">Tag Color</label>
+                        </div>
+                        <div id="tagsForms">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <div class="text-center">
+                        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <h4 class="border-bottom">Artwork in localstorage</h4>
+    <div class="row adminPanelTable">
+
+    </div>
+
+</div>

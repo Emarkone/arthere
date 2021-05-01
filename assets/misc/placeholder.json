@@ -1,105 +1,77 @@
 {
     "artworks": [
         {
-            "id": "0",
+            "id": "3d6291c3",
             "name": "Alone ?",
             "author": "Klimae",
+            "description": "Illustration sur le thème du questionnement sur notre solitude dans l'univers et la recherche de vie extra-terrestre. Vous pouvez trouver les antennes du SETI, le satellite Hubble, la sonde Voyager...",
             "price": "253",
             "img": "assets/img/art/alone.png",
             "tags": {
-                "dark": "Digital Art",
-                "purple": "Space"
-                
+                "1": ["Digital Art","dark"],
+                "2": ["Space","purple"]
             }
         },
         {
-            "id": "0",
+            "id": "4a530243",
             "name": "Organic",
             "author": "Klimae",
+            "description": "Thématique des différentes forces qui agissent sur la nature, comme la Lune (les marées), l'atmosphère (la pluie), le Soleil (la photosynthèse) et leur interopérabilité.",
             "price": "523",
             "img": "assets/img/art/organic.png",
             "tags": {
-                "dark": "Digital Art",
-                "primary": "Earth",
-                "warning": "New !"
+                "1": ["Digital Art","dark"],
+                "2": ["Earth", "primary"],
+                "3": ["New !", "warning"]
             }
         },
         {
-            "id": "0",
+            "id": "a888d525",
             "name": "Cosmos",
             "author": "Klimae",
+            "description": "Je me suis inspiré des entités particulières du cosmos telles que que les étoiles, les trous noirs et les planètes ainsi que de l'écoulement du temps, la théorie de la Lithopanspermie et notre quête du voyage spatial. ",
             "price": "18",
             "img": "assets/img/art/cosmos.png",
             "tags": {
-                "dark": "Digital Art",
-                "purple": "Space",
-                "info": "Sales"
+                "1": ["Digital Art","dark"],
+                "2": ["Space","purple"],
+                "3": ["Sales", "info"]
             }
         },
         {
-            "id": "0",
+            "id": "37d16a82",
             "name": "Isolated System",
             "author": "Klimae",
+            "description": "Représentation du Deuxième principe de la thermodynamique qui pourrait se résumer par la notion d'entropie, l'augmentation du désordre dans un système fermé.",
             "price": "42",
             "img": "assets/img/art/isolatedsystem.png",
             "tags": {
-                "dark": "Digital Art",
-                "info": "Sales"
+                "1": ["Digital Art","dark"],
+                "2": ["Sales", "info"]
             }
         },
         {
-            "id": "0",
+            "id": "e5541e13",
             "name": "System 1",
             "author": "Klimae",
+            "description": "Représentation alternative d'Isolated System dans un référentiel terrestre, notamment par rapport au réchauffement climatiques et aux interdépendances des énergies limitées.",
             "price": "89",
             "img": "assets/img/art/systeme1.png",
             "tags": {
-                "dark": "Digital Art",
-                "purple": "Space"
+                "1": ["Digital Art","dark"],
+                "2": ["Space","purple"]
             }
         },
         {
-            "id": "0",
+            "id": "b1767ad0",
             "name": "Duality",
             "author": "Klimae",
+            "description": "Travail autour de l'esthétique des codes de la transidentité et de la dualité des genres. J'ai voulu jouer sur les stéréotypes liés aux couleurs en les contournant.",
             "price": "125",
             "img": "assets/img/art/duality.png",
             "tags": {
-                "dark": "Digital Art",
-                "danger": "Human"
-            }
-        },
-        {
-            "id": "0",
-            "name": "Isolated System",
-            "author": "Klimae",
-            "price": "42",
-            "img": "assets/img/art/isolatedsystem.png",
-            "tags": {
-                "dark": "Digital Art",
-                "info": "Sales"
-            }
-        },
-        {
-            "id": "0",
-            "name": "System 1",
-            "author": "Klimae",
-            "price": "89",
-            "img": "assets/img/art/systeme1.png",
-            "tags": {
-                "dark": "Digital Art",
-                "purple": "Space"
-            }
-        },
-        {
-            "id": "0",
-            "name": "Duality",
-            "author": "Klimae",
-            "price": "125",
-            "img": "assets/img/art/duality.png",
-            "tags": {
-                "dark": "Digital Art",
-                "danger": "Human"
+                "1": ["Digital Art","dark"],
+                "2": ["Human","danger"]
             }
         }
     ]

@@ -1,39 +1,43 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<div id="page">
+
+
+
+
+
+
+<div id="header">
+<nav class="navbar navbar-expand-md navbar-light border-bottom text-dark">
     <div class="container-fluid">
+        <a class="navbar-brand m-0 d-md-none" href="#">
+            <img src="assets/img/misc/logo.png" alt="" height="20px">
+        </a>
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Left</a>
+                    <a class="nav-link" href="#home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="//codeply.com">Codeply</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#artworks">Artworks</a>
                 </li>
             </ul>
         </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand m-0" href="#">
-                <img clas="pt-0 mb-3" src="img/misc/logo.png" alt="" height="20px">
+            <a class="navbar-brand m-0 d-none d-md-block" href="#">
+                <img src="assets/img/misc/logo.png" alt="" height="20px">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="btn btn-outline-light" href="#">Connect</a>
+                    <a class="btn btn-outline-dark" id="connectButton" href="#login">Connect</a>
                 </li>
             </ul>
         </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </nav>
-<div class="container-fluid p-3 main">
+</div>
+<div id="content">

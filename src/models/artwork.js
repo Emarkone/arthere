@@ -1,20 +1,24 @@
 export default class Artwork {
-    constructor({id, name, author, price, img, tags}, displayed) {
+    constructor({id, name, author, description, price, img, tags}, displayed) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.price = price;
         this.img = img;
         this.tags = tags;
+        this.description = description;
         this.state = { displayed };
     }
 
     renderPreview() {
         const artItem = document.createElement('div');
-        artItem.classList.add("row", "border", "border-dark", "art-item");
+        artItem.classList.add("row", "art-item", "g-0", "mb-3");
+        artItem.setAttribute("id", this.id);
+
+        if(this.state.displayed) { artItem.classList.add("active") };
 
         const artImgContainer = document.createElement('div');
-        artImgContainer.classList.add("col-md-4", "no-gutters", "border-dark");
+        artImgContainer.classList.add("col-md-4", "border-dark");
 
         const artImg = document.createElement('div');
         artImg.className = "art-item-img";
@@ -26,7 +30,7 @@ export default class Artwork {
         artDescContainer.classList.add("col-md-8", "p-3");
 
         const artPriceContainer = document.createElement('div');
-        artPriceContainer.className = "pull-right";
+        artPriceContainer.className = "float-end";
         const artPrice = document.createElement('h5');
         artPrice.append(this.price + "€");
         artPriceContainer.appendChild(artPrice);
@@ -34,18 +38,14 @@ export default class Artwork {
         const artTitle = document.createElement('h5');
         artTitle.append(this.name);
 
-        //const artAuthor = document.createElement('h6');
-        // artAuthor.innerHTML = `<i class="bi bi-person-badge"></i> ${this.author}`;
-
         artDescContainer.appendChild(artPriceContainer);
         artDescContainer.appendChild(artTitle);
-        // artDescContainer.appendChild(artAuthor);
 
         if(this.tags) {
-            for (var i in this.tags) {
+            for (let i in this.tags) {
                 let artItemTag = document.createElement('div');
-                artItemTag.classList.add('badge', 'rounded-pill', `bg-${i}`);
-                artItemTag.append(this.tags[i]);
+                artItemTag.classList.add('badge', 'rounded-pill', `bg-${this.tags[i][1]}`);
+                artItemTag.append(this.tags[i][0]);
                 artDescContainer.appendChild(artItemTag);
             }
         }
@@ -57,55 +57,71 @@ export default class Artwork {
         
     }
 
-    render() {
-        const artItem = document.createElement('div');
+    renderTableThead() {
 
-        const artImg = document.createElement('img');
-        artImg.className = "art-thumbnail";
-        artImg.src = this.img;
+        let line = document.createElement('tr');
 
-        const artText = document.createElement('div');
-        artText.className = "art-item-text";
+        for (const [key,value] of Object.entries(this)) {
+            let th = document.createElement('th');
+            th.setAttribute("scope", "col");
 
-        const artTitle = document.createElement('div');
-        artTitle.className = "art-item-title";
-        artTitle.append(this.name);
+            if(key == "description" || key == "img") th.classList.add("d-none", "d-lg-table-cell");
+            if(key == "tags") th.classList.add("d-none", "d-md-table-cell");
 
-        const artAuthor = document.createElement('div');
-        artAuthor.className = "art-item-author";
-        artAuthor.append(`<i class="bi bi-person-badge"></i> ${this.author}`);
-
-        artText.appendChild(artTitle);
-        artText.appendChild(artAuthor);
-
-        artItem.appendChild(artImg);
-        artItem.appendChild(artText);
-
-        const artItemInfo = document.createElement('div');
-        artItemInfo.className = "art-item-infos";
-
-        const artPrice = document.createElement('div');
-        artPrice.className = "art-item-price";
-        artPrice.append(this.price);
-
-        artItemInfo.appendChild(artPrice);
-
-        if(this.tags) {
-            const artItemTags = document.createElement('div');
-
-            for (var i in this.tags) {
-                let artItemTag = document.createElement('div');
-                artItemTag.classList.add('badge', 'rounded-pill', `bg-${i}`);
-                artItemTag.append(this.tags[i]);
-                artItemTags.appendChild(artItemTag);
-            }
-
-            artItemInfo.appendChild(artItemTags);
+            (key == "state") ? th.append(' ') : th.append(key);
+            line.appendChild(th);
         }
 
-        artItem.appendChild(artItemInfo);
+        const th = document.createElement('th');
+        line.appendChild(th);
 
-        return artItem;
-        
+        return line;
+
+    }
+
+    renderTableLine() {
+        const line = document.createElement('tr');
+
+        for (const [key,value] of Object.entries(this)) {
+
+            let td = document.createElement('td');
+
+            switch (key) {
+                case 'id':
+                    const th = document.createElement('th');
+                    th.append(value);
+                    th.setAttribute("scope", "row");
+                    line.appendChild(th);
+                    break;
+                case 'description':
+                    td.append(value);
+                    td.classList.add("d-none", "d-lg-table-cell");
+                    line.appendChild(td);
+                    break;
+                case 'tags':
+                    let tags = "";
+                    for (let i in value) {
+                        tags += `${value[i]} </br>`
+                    }
+                    td.innerHTML = tags;
+                    td.classList.add("d-none", "d-md-table-cell");
+                    line.appendChild(td);
+                    break;
+                case 'img':
+                    td.append(value);
+                    td.classList.add("d-none", "d-lg-table-cell");
+                    line.appendChild(td);
+                    break;
+                case 'state':
+                    break;
+                default:
+                    td.append(value);
+                    line.appendChild(td);
+                    break;
+            }
+        }
+
+    return line;
+
     }
 }
