@@ -19,17 +19,17 @@ export default class App {
 
     async goTo(view) {
 
-        await fetch('/src/views/header.html')
+        await fetch('./src/views/header.html')
             .then(res => res.text())
             .then(data => this.contentPage += data);
 
-        await fetch(`/src/views/${view}.html`)
+        await fetch(`./src/views/${view}.html`)
             .then(res => res.text())
             .then(data => {
                 this.contentPage += data;
             });
 
-        await fetch('/src/views/footer.html')
+        await fetch('./src/views/footer.html')
             .then(res => res.text())
             .then(data => this.contentPage += data);
 
@@ -70,7 +70,7 @@ export default class App {
                 importedArtworks = JSON.parse(artworksString);
                 localStorage.removeItem(env.KEY_ARTWORKS);
             } else if (env.IMPORT) {
-                await fetch('/assets/misc/placeholder.json')
+                await fetch('./assets/misc/placeholder.json')
                     .then(res => res.json())
                     .then(data => {
                         importedArtworks = data.artworks;
