@@ -1,13 +1,13 @@
 <div class="container">
     <h2 class="border-bottom pb-2 my-5">Admin page</h2>
     <div class="row">
-        <h4 class="border-bottom">Add new artwork</h4>
+        <h4 id="currentAction" class="border-bottom">Add new artwork</h4>
         <form class="formAdd mb-3">
             <div class="row mb-3">
                 <div class="col-lg-6">
                     <div class="mb-1">
-                        <label for="awname" class="form-label">Name</label>
-                        <input id="text" name="awname" placeholder="Artwork's Name" type="text" class="form-control"
+                        <label for="name" class="form-label">Name</label>
+                        <input id="text" name="name" placeholder="Artwork's Name" type="text" class="form-control"
                             required="required">
                     </div>
                     <div class="mb-1">
@@ -38,13 +38,15 @@
                     </div>
                 </div>
                 <div class="col-lg-6 labelAdd">
-
-                    <div class="mb-0 row">
-                        <div class="col-8 mb-0">
+                    <div class="mb-0 row g-0 d-flex justify-content-center">
+                        <div class="col-5 col-lg-7 mb-0">
                             <label for="inputCity" class="form-label">Tag Name</label>
                         </div>
-                        <div class="col-4 mb-0">
+                        <div class="col-5 col-lg-5 mb-0">
                             <label for="inputState" class="form-label">Tag Color</label>
+                        </div>
+                        <div class="col-1">
+
                         </div>
                         <div id="tagsForms">
 
@@ -63,7 +65,7 @@
     </div>
 
     <h4 class="border-bottom">Artwork in localstorage</h4>
-    <div class="row adminPanelTable">
+    <div class="row adminPanelTable mb-3">
 
     </div>
 

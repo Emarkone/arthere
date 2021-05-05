@@ -18,6 +18,7 @@ export default class App {
     }
 
     async goTo(view) {
+
         await fetch('/src/views/header.html')
             .then(res => res.text())
             .then(data => this.contentPage += data);
@@ -34,8 +35,14 @@ export default class App {
 
         document.body.innerHTML = this.contentPage;
 
+        if (this.user) {
+            document.getElementById('connectButton').innerHTML = `Connected as <strong>${this.user.username}</strong>`;
+        }
+
+
         switch (view) {
             case 'artworks':
+                await this.loadData();
                 this.createArtworkPreview();
                 this.responsivePreview();
                 break;
@@ -43,13 +50,10 @@ export default class App {
                 this.loginPage();
                 break;
             case 'admin':
+                await this.loadData();
                 new Admin(this);
             default:
                 break;
-        }
-
-        if (this.user) {
-            document.getElementById('connectButton').innerHTML = `Connected as <strong>${this.user.username}</strong>`;
         }
 
         this.contentPage = "";
@@ -60,7 +64,6 @@ export default class App {
             this.artworks = [];
 
             let importedArtworks = {};
-
 
             if (window.localStorage.getItem(env.KEY_ARTWORKS) && JSON.parse(localStorage.getItem(env.KEY_ARTWORKS)).length !== 0) {
                 const artworksString = localStorage.getItem(env.KEY_ARTWORKS);
@@ -84,13 +87,18 @@ export default class App {
                 }
             );
 
-            localStorage.setItem(env.KEY_ARTWORKS, JSON.stringify(this.artworks));
+            this.saveData();
         }
+    }
+
+    saveData() {
+        localStorage.setItem(env.KEY_ARTWORKS, JSON.stringify(this.artworks));
     }
 
     createArtworkPreview() {
         this.artworksList = document.querySelector('.artList');
         this.artworkShow = document.querySelector('.artShow');
+
         if (this.artworks.length !== 0) {
             if (this.artworksList.hasChildNodes) this.artworksList.innerHTML = '';
             this.artworks.forEach(this.createArtworkPreviewRow.bind(this));
@@ -101,30 +109,27 @@ export default class App {
                                            </div>`;
 
             this.artworkShow.closest('.col-lg-6').remove();
-
             this.artworksList.closest('.col-lg-6').classList.add('col-lg-12');
-
-
         }
     }
 
     createArtworkPreviewRow(artworkInstance) {
         const renderArtworkPreview = artworkInstance.renderPreview();
         artworkInstance.renderTableLine();
-        renderArtworkPreview.addEventListener('click', e => { this.updateArtworkShow(e.target.closest('.art-item').id) });
+        renderArtworkPreview.addEventListener('click', e => { this.updateArtworkShow(e.currentTarget.id) });
         this.artworksList.appendChild(renderArtworkPreview);
     }
 
     updateArtworkShow(id) {
 
-        const previous = this.artworks.find(a => a.state.displayed);
+        let previous = this.artworks.find(a => a.state.displayed);
 
         if (previous) {
             previous.state.displayed = false;
             document.getElementById(previous.id).classList.remove('active');
         }
 
-        const selectedArtwork = this.artworks.find(a => a.id == id);
+        let selectedArtwork = this.artworks.find(a => a.id == id);
         selectedArtwork.state.displayed = true;
 
         document.querySelector('#artshowName').innerHTML = selectedArtwork.name;
@@ -146,18 +151,19 @@ export default class App {
         let preview = document.getElementById('previewContainer');
 
         window.addEventListener('scroll', function (e) {
+            if (!preview) return;
             let maxScrollValue = contentHeight - preview.clientHeight + document.getElementById('header').clientHeight - document.getElementById('footer').clientHeight - 15;
-            if (preview && window.innerWidth >= 992 ) {
+            if (preview && window.innerWidth >= 992) {
 
                 if (maxScrollValue > window.scrollY && window.scrollY > 40) {
                     preview.style.marginTop = window.scrollY + "px";
                 }
 
-                if(maxScrollValue < window.scrollY) {
+                if (maxScrollValue < window.scrollY) {
                     preview.style.marginTop = maxScrollValue + 1;
                 }
 
-                if(window.scrollY < 40) {
+                if (window.scrollY < 40) {
                     preview.style.marginTop = "0px";
                 }
 
@@ -180,7 +186,7 @@ export default class App {
     login(username, password) {
         if (username == env.USERNAME && password == env.PASSWORD) {
             this.user = new User(username);
-            this.goTo('admin');
+            location.hash = 'admin';
         } else {
             document.getElementById('loginAlert').innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
             Wrong combinaison, check <strong>env.js</strong> !

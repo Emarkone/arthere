@@ -7,10 +7,10 @@
             "description": "Illustration sur le thème du questionnement sur notre solitude dans l'univers et la recherche de vie extra-terrestre. Vous pouvez trouver les antennes du SETI, le satellite Hubble, la sonde Voyager...",
             "price": "253",
             "img": "assets/img/art/alone.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Space","purple"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Space","purple"]
+            ]
         },
         {
             "id": "4a530243",
@@ -19,11 +19,11 @@
             "description": "Thématique des différentes forces qui agissent sur la nature, comme la Lune (les marées), l'atmosphère (la pluie), le Soleil (la photosynthèse) et leur interopérabilité.",
             "price": "523",
             "img": "assets/img/art/organic.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Earth", "primary"],
-                "3": ["New !", "warning"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Earth", "primary"],
+                ["New !", "warning"]
+            ]
         },
         {
             "id": "a888d525",
@@ -32,11 +32,11 @@
             "description": "Je me suis inspiré des entités particulières du cosmos telles que que les étoiles, les trous noirs et les planètes ainsi que de l'écoulement du temps, la théorie de la Lithopanspermie et notre quête du voyage spatial. ",
             "price": "18",
             "img": "assets/img/art/cosmos.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Space","purple"],
-                "3": ["Sales", "info"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Space","purple"],
+                ["Sales", "info"]
+            ]
         },
         {
             "id": "37d16a82",
@@ -45,10 +45,10 @@
             "description": "Représentation du Deuxième principe de la thermodynamique qui pourrait se résumer par la notion d'entropie, l'augmentation du désordre dans un système fermé.",
             "price": "42",
             "img": "assets/img/art/isolatedsystem.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Sales", "info"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Sales", "info"]
+            ]
         },
         {
             "id": "e5541e13",
@@ -57,10 +57,10 @@
             "description": "Représentation alternative d'Isolated System dans un référentiel terrestre, notamment par rapport au réchauffement climatiques et aux interdépendances des énergies limitées.",
             "price": "89",
             "img": "assets/img/art/systeme1.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Space","purple"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Space","purple"]
+            ]
         },
         {
             "id": "b1767ad0",
@@ -69,10 +69,10 @@
             "description": "Travail autour de l'esthétique des codes de la transidentité et de la dualité des genres. J'ai voulu jouer sur les stéréotypes liés aux couleurs en les contournant.",
             "price": "125",
             "img": "assets/img/art/duality.png",
-            "tags": {
-                "1": ["Digital Art","dark"],
-                "2": ["Human","danger"]
-            }
+            "tags": [
+                ["Digital Art","dark"],
+                ["Human","danger"]
+            ]
         }
     ]
 }

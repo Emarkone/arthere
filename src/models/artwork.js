@@ -1,5 +1,5 @@
 export default class Artwork {
-    constructor({id, name, author, description, price, img, tags}, displayed) {
+    constructor({id, name, author, description, price, img, tags}, displayed = false) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -42,12 +42,7 @@ export default class Artwork {
         artDescContainer.appendChild(artTitle);
 
         if(this.tags) {
-            for (let i in this.tags) {
-                let artItemTag = document.createElement('div');
-                artItemTag.classList.add('badge', 'rounded-pill', `bg-${this.tags[i][1]}`);
-                artItemTag.append(this.tags[i][0]);
-                artDescContainer.appendChild(artItemTag);
-            }
+            this.tags.forEach(e => artDescContainer.appendChild(this.renderTag(e)));
         }
 
         artItem.appendChild(artImgContainer);
@@ -55,6 +50,13 @@ export default class Artwork {
         
         return artItem;
         
+    }
+
+    renderTag(tag) {
+        let tagRender = document.createElement('div');
+        tagRender.classList.add('badge', 'rounded-pill', `bg-${tag[1]}`);
+        tagRender.append(tag[0]);
+        return tagRender;
     }
 
     renderTableThead() {
@@ -67,8 +69,8 @@ export default class Artwork {
 
             if(key == "description" || key == "img") th.classList.add("d-none", "d-lg-table-cell");
             if(key == "tags") th.classList.add("d-none", "d-md-table-cell");
-
             (key == "state") ? th.append(' ') : th.append(key);
+            
             line.appendChild(th);
         }
 
@@ -84,40 +86,36 @@ export default class Artwork {
 
         for (const [key,value] of Object.entries(this)) {
 
-            let td = document.createElement('td');
+            if (key == 'id') {
+                let th = document.createElement('th');
+                th.append(value);
+                th.setAttribute("scope", "row");
+                line.appendChild(th);
+            } else {
+                let td = document.createElement('td');
 
-            switch (key) {
-                case 'id':
-                    const th = document.createElement('th');
-                    th.append(value);
-                    th.setAttribute("scope", "row");
-                    line.appendChild(th);
-                    break;
-                case 'description':
-                    td.append(value);
-                    td.classList.add("d-none", "d-lg-table-cell");
-                    line.appendChild(td);
-                    break;
-                case 'tags':
-                    let tags = "";
-                    for (let i in value) {
-                        tags += `${value[i]} </br>`
-                    }
-                    td.innerHTML = tags;
-                    td.classList.add("d-none", "d-md-table-cell");
-                    line.appendChild(td);
-                    break;
-                case 'img':
-                    td.append(value);
-                    td.classList.add("d-none", "d-lg-table-cell");
-                    line.appendChild(td);
-                    break;
-                case 'state':
-                    break;
-                default:
-                    td.append(value);
-                    line.appendChild(td);
-                    break;
+                switch (key) {
+                    case 'description':
+                        td.append(value);
+                        td.classList.add("d-none", "d-lg-table-cell");
+                        break;
+                    case 'tags':
+                        console.log(value);
+                        value.forEach(e => td.appendChild(this.renderTag(e)));
+                        td.classList.add("d-none", "d-md-table-cell");
+                        break;
+                    case 'img':
+                        td.append(value);
+                        td.classList.add("d-none", "d-lg-table-cell");
+                        break;
+                    case 'state':
+                        break;
+                    default:
+                        td.append(value);
+                        break;
+                }
+
+                line.appendChild(td);
             }
         }
 
