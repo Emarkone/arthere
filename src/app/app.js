@@ -1,7 +1,8 @@
 import Artwork from '../models/artwork.js';
 import { env } from '../env.js';
 import User from '../models/user.js';
-import Admin from '../app/admin.js';
+import Admin from './admin.js';
+import Utils from './utils.js'
 
 export default class App {
     constructor() {
@@ -84,9 +85,9 @@ export default class App {
     }
 
     async loadArtworks() {
-        if (window.localStorage) {
-            this.artworks = [];
+        if(this.artworks.length !== 0) return;
 
+        if (window.localStorage) {
             let importedArtworks = {};
 
             if (window.localStorage.getItem(env.KEY_ARTWORKS) && JSON.parse(localStorage.getItem(env.KEY_ARTWORKS)).length !== 0) {
@@ -111,11 +112,11 @@ export default class App {
                 }
             );
 
-            this.saveData();
+            this.saveArtworks();
         }
     }
 
-    saveData() {
+    saveArtworks() {
         localStorage.setItem(env.KEY_ARTWORKS, JSON.stringify(this.artworks));
     }
 
@@ -128,10 +129,7 @@ export default class App {
             this.artworks.forEach(this.createArtworkPreviewRow.bind(this));
             this.updateArtworkShow(this.artworks[0].id);
         } else {
-            this.artworksList.innerHTML = `<div class="alert alert-secondary" role="alert">
-                                            No artwork in my localstorage. (⩾﹏⩽) 
-                                           </div>`;
-
+            this.artworksList.innerHTML = Utils.renderAlert('secondary', ' No artwork in my localstorage. (⩾﹏⩽)', false);
             this.artworkShow.closest('.col-lg-6').remove();
             this.artworksList.closest('.col-lg-6').classList.add('col-lg-12');
         }
@@ -214,10 +212,7 @@ export default class App {
             this.currentUser = user;
             location.hash = 'admin';
         } else {
-            document.getElementById('loginAlert').innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Wrong combinaison, check <strong>placeholderAdmin.json</strong> !
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`;
+            document.getElementById('loginAlert').innerHTML = Utils.renderAlert('danger', 'Invalid username or password, check localstorage !', true);
         }
     }
 

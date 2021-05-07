@@ -1,5 +1,5 @@
-import { env } from '../env.js';
 import Artwork from '../models/artwork.js';
+import Utils from './utils.js';
 
 export default class Admin {
 
@@ -34,6 +34,7 @@ export default class Admin {
         this.tagButtonContainer = document.querySelector('.labelAdd');
         this.tagFormContainer = document.getElementById('tagsForms');
         this.form = document.querySelector('.formAdd');
+        this.alertContainer = document.getElementById('alertContainer');
 
         this.form.addEventListener('submit', event => {
             event.preventDefault();
@@ -41,7 +42,13 @@ export default class Admin {
             event.target.reset();
         });
 
-        if (Object.keys(this.app.artworks).length !== 0) this.renderTable();
+        if (Object.keys(this.app.artworks).length !== 0) {
+            this.renderTable();
+        } else {
+            this.tableContainer.innerHTML = Utils.renderAlert('secondary', ' No artwork in my localstorage. (⩾﹏⩽)', false);
+        }
+
+        
 
         this.renderTagButton();
 
@@ -74,10 +81,8 @@ export default class Admin {
     }
 
     renderTableLine(e) {
-
         let td = document.createElement('td');
 
-        let deleteButton = document.createElement('button');
         let editButton = document.createElement('button');
 
         editButton.setAttribute("type", "button");
@@ -86,6 +91,8 @@ export default class Admin {
         editButton.innerHTML = ('<i class="bi bi-pencil-fill text-light"></i>');
         editButton.addEventListener('click', button => this.retrieveItem(button.currentTarget));
         td.appendChild(editButton);
+
+        let deleteButton = document.createElement('button');
 
         deleteButton.setAttribute("type", "button");
         deleteButton.setAttribute("id", e.id);
@@ -103,10 +110,9 @@ export default class Admin {
     }
 
     renderTagButton() {
-        
         let button = document.createElement('button');
         button.setAttribute("type", "button");
-        button.classList.add("btn", "btn-primary","mx-auto");
+        button.classList.add("btn", "btn-primary", "mx-auto");
         button.append("Add tag");
 
         button.addEventListener('click', event => this.renderTagForm());
@@ -114,7 +120,6 @@ export default class Admin {
     }
 
     renderTagForm(value = null) {
-
         let tagsContainer = document.createElement('div');
         tagsContainer.classList.add('mb-2', 'row', 'g-1', 'd-flex', 'justify-content-center');
 
@@ -125,7 +130,7 @@ export default class Admin {
         tagNameInput.className = "form-control";
         tagNameInput.setAttribute('name', `tag-text`);
 
-        if(value) tagNameInput.value = value[0];
+        if (value) tagNameInput.value = value[0];
 
         tagNameContainer.appendChild(tagNameInput);
         tagsContainer.appendChild(tagNameContainer);
@@ -140,12 +145,12 @@ export default class Admin {
         for (let i = 0; i < Object.keys(this.tagsColor).length; i++) {
             let option = document.createElement('option');
 
-            if(value) {
-                if(value[1] == Object.values(this.tagsColor)[i]) option.selected = true;
+            if (value) {
+                if (value[1] == Object.values(this.tagsColor)[i]) option.selected = true;
             } else {
                 if (i == 0) option.selected = true;
             }
-            
+
             option.append(Object.keys(this.tagsColor)[i]);
             tagColorSelector.appendChild(option);
         }
@@ -169,8 +174,8 @@ export default class Admin {
     }
 
     addItem(form) {
-
         let tags = [];
+
         const tagsText = form.elements['tag-text'];
         const tagsColor = form.elements['tag-color'];
 
@@ -184,20 +189,26 @@ export default class Admin {
             }
         }
 
-        if(this.artworkToEdit) {
+        if (this.artworkToEdit) {
 
             Object.values(form).map(formElement => {
-                if(this.artworkToEdit[formElement.name]) this.artworkToEdit[formElement.name] = formElement.value;
+                if (this.artworkToEdit[formElement.name]) this.artworkToEdit[formElement.name] = formElement.value;
             });
+
+            this.alertContainer.innerHTML = Utils.renderAlert('success', 'Artwork successfuly edited !', true);
+
             this.artworkToEdit.tags = tags;
             this.artwortToEdit = null;
 
         } else {
-            let newArtwork = new Artwork({ id: this.generateID(), name: form.name.value, author: form.author.value, description: form.description.value, price: form.price.value, img: form.img.value, tags: tags });
+
+            let newArtwork = new Artwork({ id: Utils.generateID(), name: form.name.value, author: form.author.value, description: form.description.value, price: form.price.value, img: form.img.value, tags: tags });
             this.app.artworks.push(newArtwork);
+
+            this.alertContainer.innerHTML = Utils.renderAlert('success', 'Artwork successfuly added !', true);
         }
 
-        this.app.saveData();
+        this.app.saveArtworks();
 
         document.getElementById('currentAction').innerHTML = "Add new artwork";
         this.tagFormContainer.innerHTML = '';
@@ -208,7 +219,9 @@ export default class Admin {
     removeItem(caller) {
         this.app.artworks.splice(this.app.artworks.findIndex(e => e.id == caller.id), 1);
         caller.closest('tr').remove();
-        this.app.saveData();
+        this.app.saveArtworks();
+        if (Object.keys(this.app.artworks).length === 0) this.tableContainer.innerHTML = Utils.renderAlert('secondary', ' No artwork in my localstorage. (⩾﹏⩽)', false);
+        
     }
 
     retrieveItem(caller) {
@@ -220,7 +233,7 @@ export default class Admin {
 
         Object.values(this.form).map(formElement => formElement.value = artworkToEdit[formElement.name]);
         artworkToEdit.tags.forEach(tag => this.renderTagForm(tag));
-        
+
         this.form.closest('.row').scrollIntoView();
 
         this.artworkToEdit = artworkToEdit;
