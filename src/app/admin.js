@@ -31,28 +31,28 @@ export default class Admin {
 
     render() {
         this.tableContainer = document.querySelector('.adminPanelTable');
-        this.tagButtonContainer = document.querySelector('.labelAdd');
         this.tagFormContainer = document.getElementById('tagsForms');
         this.form = document.querySelector('.formAdd');
         this.alertContainer = document.getElementById('alertContainer');
 
         this.form.addEventListener('submit', event => {
             event.preventDefault();
-            this.addItem(event.target);
+            this.addOrEditItem(event.target);
             event.target.reset();
         });
+
+        document.getElementById('tagAdd').addEventListener('click', e => this.renderTagForm());
 
         if (Object.keys(this.app.artworks).length !== 0) {
             this.renderTable();
         } else {
             this.tableContainer.innerHTML = Utils.renderAlert('secondary', ' No artwork in my localstorage. (⩾﹏⩽)', false);
         }
-
-        
-
-        this.renderTagButton();
-
     }
+
+    /** 
+     *  Render the table of all the artwork stored
+     */
 
     renderTable() {
         let tableContainer = document.createElement('div');
@@ -68,8 +68,8 @@ export default class Admin {
 
         let tbody = document.createElement('tbody');
 
-        this.app.artworks.forEach(e => {
-            tbody.appendChild(this.renderTableLine(e));
+        this.app.artworks.forEach(artwork => {
+            tbody.appendChild(this.renderTableLine(artwork));
         })
 
         table.appendChild(tbody);
@@ -80,44 +80,33 @@ export default class Admin {
         this.tableContainer.appendChild(tableContainer);
     }
 
-    renderTableLine(e) {
+    /** 
+     *  Render a new table line
+     * @param {Array} artwork 
+     */
+
+    renderTableLine(artwork) {
         let td = document.createElement('td');
 
-        let editButton = document.createElement('button');
-
-        editButton.setAttribute("type", "button");
-        editButton.setAttribute("id", e.id);
-        editButton.classList.add("btn", "btn-warning", "m-1");
-        editButton.innerHTML = ('<i class="bi bi-pencil-fill text-light"></i>');
+        let editButton = Utils.renderButton("warning", `<i class="bi bi-pencil-fill"></i>`, artwork.id, ['m-1']);
         editButton.addEventListener('click', button => this.retrieveItem(button.currentTarget));
         td.appendChild(editButton);
 
-        let deleteButton = document.createElement('button');
-
-        deleteButton.setAttribute("type", "button");
-        deleteButton.setAttribute("id", e.id);
-        deleteButton.classList.add("btn", "btn-danger", "m-1");
-        deleteButton.innerHTML = ('<i class="bi bi-trash"></i>');
-
+        let deleteButton = Utils.renderButton("danger", `<i class="bi bi-trash"></i>`, artwork.id, ['m-1']);
         deleteButton.addEventListener('click', button => this.removeItem(button.currentTarget));
         td.appendChild(deleteButton);
 
-        let line = e.renderTableLine();
+        let line = artwork.renderTableLine();
 
         line.appendChild(td);
 
         return line;
     }
 
-    renderTagButton() {
-        let button = document.createElement('button');
-        button.setAttribute("type", "button");
-        button.classList.add("btn", "btn-primary", "mx-auto");
-        button.append("Add tag");
-
-        button.addEventListener('click', event => this.renderTagForm());
-        this.tagButtonContainer.appendChild(button);
-    }
+    /** 
+     *  Render a new tag form
+     * @param {Array} value Preset value in case of editing
+     */
 
     renderTagForm(value = null) {
         let tagsContainer = document.createElement('div');
@@ -161,10 +150,7 @@ export default class Admin {
         let tagDeleteContainer = document.createElement('div');
         tagDeleteContainer.classList.add('col-1', 'col-lg-1');
 
-        let deleteButton = document.createElement('button');
-        deleteButton.setAttribute("type", "button");
-        deleteButton.classList.add("btn", "btn-danger");
-        deleteButton.innerHTML = ('<i class="bi bi-trash"></i>');
+        let deleteButton = Utils.renderButton("danger", `<i class="bi bi-trash"></i>`);
         deleteButton.addEventListener('click', b => b.currentTarget.closest(".row").remove());
 
         tagDeleteContainer.appendChild(deleteButton);
@@ -173,7 +159,12 @@ export default class Admin {
         this.tagFormContainer.appendChild(tagsContainer);
     }
 
-    addItem(form) {
+    /** 
+     *  Add or remove item in the artwork array
+     * @param {Object} form The form from which the data comes
+     */
+
+    addOrEditItem(form) {
         let tags = [];
 
         const tagsText = form.elements['tag-text'];
@@ -216,14 +207,22 @@ export default class Admin {
 
     }
 
+    /** 
+     * Remove an item in and in the table and the artworks array 
+     * @param {HTMLElement} caller The button that have been clicked
+     */
+
     removeItem(caller) {
         this.app.artworks.splice(this.app.artworks.findIndex(e => e.id == caller.id), 1);
         caller.closest('tr').remove();
         this.app.saveArtworks();
         if (Object.keys(this.app.artworks).length === 0) this.tableContainer.innerHTML = Utils.renderAlert('secondary', ' No artwork in my localstorage. (⩾﹏⩽)', false);
-        
     }
 
+    /** 
+     * Retrieve item values and put them in the form for it to be modified 
+     * @param {HTMLElement} caller The button that have been clicked
+     */
     retrieveItem(caller) {
         this.tagFormContainer.innerHTML = '';
 
@@ -238,13 +237,4 @@ export default class Admin {
 
         this.artworkToEdit = artworkToEdit;
     }
-
-    generateID() {
-        return 'xxxxxxxx'.replace(/[xy]/g, function (c) {
-            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-
-
 }

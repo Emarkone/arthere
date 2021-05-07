@@ -7,6 +7,17 @@ export default class Utils {
         </div>`
     }
 
+    static renderButton(type, text, id = null, style = []) {
+        let button = document.createElement('button');
+
+        button.setAttribute("type", "button");
+        if (id) button.setAttribute("id", id);
+        button.classList.add("btn", `btn-outline-${type}`, ...style);
+        button.innerHTML = (text);
+
+        return button;
+    }
+
     static generateID() {
         return 'xxxxxxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
