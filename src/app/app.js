@@ -11,8 +11,9 @@ export default class App {
         this.artworkShow = null;
 
         this.artworks = [];
+        this.users = [];
 
-        this.user = null;
+        this.currentUser = null;
 
         this.formCount = 1;
     }
@@ -35,23 +36,25 @@ export default class App {
 
         document.body.innerHTML = this.contentPage;
 
-        if (this.user) {
-            document.getElementById('connectButton').innerHTML = `Connected as <strong>${this.user.username}</strong>`;
+        if (this.currentUser) {
+            document.getElementById('connectButton').innerHTML = `Connected as <strong>${this.currentUser.username}</strong>`;
         }
 
 
         switch (view) {
             case 'artworks':
-                await this.loadData();
+                this.loadArtworks();
                 this.createArtworkPreview();
                 this.responsivePreview();
                 break;
             case 'login':
+                this.loadUsers();
                 this.loginPage();
                 break;
             case 'admin':
-                await this.loadData();
+                this.loadArtworks();
                 new Admin(this);
+                break;
             default:
                 break;
         }
@@ -59,7 +62,28 @@ export default class App {
         this.contentPage = "";
     }
 
-    async loadData() {
+    async loadUsers() {
+        let importedUsers = {};
+
+        if (window.localStorage.getItem(env.KEY_ADMINS) && JSON.parse(localStorage.getItem(env.KEY_ADMINS)).length !== 0) {
+            const users = localStorage.getItem(env.KEY_ADMINS);
+            importedUsers = JSON.parse(users);
+        } else {
+            await fetch('./assets/misc/placeholderAdmin.json')
+                .then(res => res.json())
+                .then(data => {
+                    importedUsers = data.users;
+                })
+        }
+
+        importedUsers.forEach(userData => {
+            this.users.push(new User(userData));
+        })
+
+        localStorage.setItem(env.KEY_ADMINS, JSON.stringify(this.users));
+    }
+
+    async loadArtworks() {
         if (window.localStorage) {
             this.artworks = [];
 
@@ -70,7 +94,7 @@ export default class App {
                 importedArtworks = JSON.parse(artworksString);
                 localStorage.removeItem(env.KEY_ARTWORKS);
             } else if (env.IMPORT) {
-                await fetch('./assets/misc/placeholder.json')
+                await fetch('./assets/misc/placeholderArtwork.json')
                     .then(res => res.json())
                     .then(data => {
                         importedArtworks = data.artworks;
@@ -79,7 +103,7 @@ export default class App {
                 importedArtworks = null;
             }
 
-            if (!importedArtworks) return;
+            if (!importedArtworks || importedArtworks[0].id === undefined) return;
 
             importedArtworks.forEach(
                 (data, index) => {
@@ -184,14 +208,16 @@ export default class App {
     }
 
     login(username, password) {
-        if (username == env.USERNAME && password == env.PASSWORD) {
-            this.user = new User(username);
+        let user = this.users.find(e => e.username == username);
+
+        if (user && user.checkPassword(password)) {
+            this.currentUser = user;
             location.hash = 'admin';
         } else {
             document.getElementById('loginAlert').innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Wrong combinaison, check <strong>env.js</strong> !
+            Wrong combinaison, check <strong>placeholderAdmin.json</strong> !
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`
+            </div>`;
         }
     }
 

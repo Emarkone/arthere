@@ -100,7 +100,6 @@ export default class Artwork {
                         td.classList.add("d-none", "d-lg-table-cell");
                         break;
                     case 'tags':
-                        console.log(value);
                         value.forEach(e => td.appendChild(this.renderTag(e)));
                         td.classList.add("d-none", "d-md-table-cell");
                         break;

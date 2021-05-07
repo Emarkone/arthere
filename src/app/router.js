@@ -7,8 +7,7 @@ export default class Router {
     const route = location.hash ? location.hash.substr('1') : 'home';
     const routeExists = routes.includes(route);
 
-    const userExists = (app.user !== null);
-
+    const userExists = (app.currentUser !== null);
 
     if (!routeExists) {
       location.hash = 'home';
